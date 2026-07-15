@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Healthy Bites 🍓 Recipe Collection</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blush:#fff2f6;
+    --rose:#e0447e;
+    --rose-deep:#b21f5c;
+    --petal:#ffc9e0;
+    --mint:#eefaf2;
+    --paper:#ffffff;
+    --plum:#401b30;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  body{
+    background:var(--blush);
+    color:var(--plum);
+    font-family:'Work Sans', sans-serif;
+    line-height:1.6;
+  }
+
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    letter-spacing:-0.01em;
+  }
+
+  a{ color:inherit; }
+
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(255,242,246,0.9);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(224,68,126,0.15);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px;
+  }
+  .brand{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:1.25rem;
+    color:var(--rose-deep);
+  }
+  nav ul{
+    display:flex; gap:26px; list-style:none;
+    font-size:0.9rem; font-weight:600;
+  }
+  nav ul a{ text-decoration:none; opacity:0.8; }
+  nav ul a:hover{ opacity:1; color:var(--rose-deep); }
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    position:relative;
+    padding:80px 0 70px;
+    text-align:center;
+    overflow:hidden;
+  }
+  .hero .blob{
+    position:absolute;
+    width:480px; height:480px;
+    background:radial-gradient(circle at 40% 40%, var(--petal), transparent 70%);
+    top:-200px; left:50%; transform:translateX(-50%);
+    z-index:-1;
+    border-radius:50%;
+  }
+  .eyebrow{
+    font-size:0.8rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--rose);
+    font-weight:700;
+  }
+  header.hero h1{
+    font-size:clamp(2.4rem, 5vw, 3.4rem);
+    margin-top:14px;
+    color:var(--rose-deep);
+  }
+  header.hero p{
+    max-width:52ch;
+    margin:18px auto 0;
+    color:#6b3a54;
+    font-size:1.05rem;
+  }
+  .meal-nav{
+    margin-top:36px;
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .meal-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 20px;
+    border-radius:999px;
+    background:var(--paper);
+    border:1.5px solid var(--petal);
+    font-weight:600;
+    font-size:0.9rem;
+    text-decoration:none;
+    color:var(--rose-deep);
+    transition:transform .15s ease, background .15s ease;
+  }
+  .meal-pill:hover{ background:var(--petal); transform:translateY(-2px); }
+
+  /* ---------- MEAL SECTION ---------- */
+  section.meal{
+    padding:70px 0;
+  }
+  section.meal:nth-of-type(even){
+    background:var(--paper);
+    border-top:1px solid rgba(224,68,126,0.12);
+    border-bottom:1px solid rgba(224,68,126,0.12);
+  }
+  .meal-heading{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:40px;
+  }
+  .meal-heading .emoji{ font-size:2rem; }
+  .meal-heading h2{
+    font-size:2rem;
+    color:var(--plum);
+  }
+
+  .recipe-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:28px;
+  }
+
+  .recipe-card{
+    background:var(--paper);
+    border:1px solid rgba(224,68,126,0.18);
+    border-radius:18px;
+    padding:26px 26px 30px;
+    box-shadow:0 12px 26px -18px rgba(178,31,92,0.35);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  section.meal:nth-of-type(even) .recipe-card{
+    background:var(--blush);
+  }
+  .recipe-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 18px 32px -18px rgba(178,31,92,0.45);
+  }
+
+  .recipe-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:1.2rem;
+    color:var(--rose-deep);
+    margin-bottom:16px;
+  }
+  .recipe-title .num{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:26px; height:26px;
+    border-radius:50%;
+    background:var(--petal);
+    color:var(--rose-deep);
+    font-size:0.8rem;
+    font-family:'Work Sans', sans-serif;
+    font-weight:700;
+  }
+
+  .recipe-card h4{
+    font-size:0.78rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--rose);
+    margin-top:18px;
+    margin-bottom:8px;
+    font-weight:700;
+  }
+  .recipe-card h4:first-of-type{ margin-top:4px; }
+
+  .recipe-card ul{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .recipe-card ul li{
+    font-size:0.92rem;
+    padding-left:22px;
+    position:relative;
+    color:#4a2438;
+  }
+  .recipe-card ul li::before{
+    content:'🍃';
+    position:absolute;
+    left:0;
+    font-size:0.8rem;
+  }
+
+  .recipe-card ol{
+    padding-left:20px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .recipe-card ol li{
+    font-size:0.92rem;
+    color:#4a2438;
+    padding-left:4px;
+  }
+  .recipe-card ol li::marker{
+    color:var(--rose);
+    font-weight:700;
+  }
+
+  @media (max-width:760px){
+    .recipe-grid{ grid-template-columns:1fr; }
+    nav ul{ display:none; }
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    padding:44px 0;
+    text-align:center;
+    color:#a06c8f;
+    font-size:0.88rem;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">🍓 Healthy Bites</div>
+    <ul>
+      <li><a href="#breakfast">Breakfast</a></li>
+      <li><a href="#lunch">Lunch</a></li>
+      <li><a href="#dinner">Dinner</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="blob"></div>
+  <div class="wrap">
+    <span class="eyebrow">Fresh &middot; Simple &middot; Nourishing</span>
+    <h1>Healthy Recipes for<br>Every Meal 🍽️</h1>
+    <p>A collection of easy, wholesome recipes to keep you fueled from breakfast through dinner — no fuss, just good food.</p>
+    <div class="meal-nav">
+      <a class="meal-pill" href="#breakfast">🥣 Breakfast</a>
+      <a class="meal-pill" href="#lunch">🥗 Lunch</a>
+      <a class="meal-pill" href="#dinner">🍲 Dinner</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ BREAKFAST ============ -->
+<section class="meal" id="breakfast">
+  <div class="wrap">
+    <div class="meal-heading">
+      <span class="emoji">🥣</span>
+      <h2>Healthy Breakfast Recipes</h2>
+    </div>
+    <div class="recipe-grid">
+
+      <div class="recipe-card">
+        <div class="recipe-title"><span class="num">1</span>🍇 Greek Yogurt Berry Bowl</div>
+        <h4>Ingredients</h4>
+        <ul>
+          <li>1 cup Greek yogurt</li>
+          <li>1/2 cup mixed berries</li>
+          <li>2 tbsp granola</li>
+          <li>1 tsp chia seeds</li>
+          <li>1 tsp honey (optional)</li>
+        </ul>
+        <h4>Instructions</h4>
+        <ol>
+          <li>Add the Greek yogurt to a bowl.</li>
+          <li>Top with mixed berries, granola, and chia seeds.</li>
+          <li>Drizzle with honey if desired.</li>
+          <li>Serve immediately.</li>
+        </ol>
+      </div>
+
+      <div class="recipe-card">
+        <div class="recipe-title"><span class="num">2</span>🥑 Avocado Toast with Egg</div>
+        <h4>Ingredients</h4>
+        <ul>
+          <li>2 slices whole-grain bread</li>
+          <li>1 ripe avocado</li>
+          <li>2 eggs</li>
+          <li>Salt and black pepper</li>
+          <li>Chili flakes (optional)</li>
+        </ul>
+        <h4>Instructions</h4>
+        <ol>
+          <li>Toast the bread.</li>
+          <li>Mash the avocado and spread it on the toast.</li>
+          <li>Cook the eggs to your preference.</li>
+          <li>Place the eggs on top of the avocado.</li>
+          <li>Season with salt, pepper, and chili flakes.</li>
+        </ol>
+      </div>
+
+      <div class="recipe-card">
+        <div class="recipe-title"><span class="num">3</span>🍌 Banana Oat Pancakes</div>
+        <h4>Ingredients</h4>
+        <ul>
+          <li>1 banana</li>
+          <li>2 eggs</li>
+          <li>1/2 cup rolled oats</li>
+          <li>1 tsp baking powder</li>
+          <li>Cinnamon to taste</li>
+        </ul>
+        <h4>Instructions</h4>
+        <ol>
+          <li>Blend all ingredients until smooth.</li>
+          <li>Heat a non-stick pan over medium heat.</li>
+          <li>Pour small portions of batter onto the pan.</li>
+          <li>Cook for 2–3 minutes per side.</li>
+          <li>Serve with fresh fruit.</li>
+        </ol>
+      </div>
+
+      <div class="recipe-card">
+        <div class="recipe-title"><span class="num">4</span>🥬 Spinach Omelette</div>
+        <h4>Ingredients</h4>
+        <ul>
+          <li>3 eggs</li>
+          <li>1 cup fresh spinach</li>
+          <li>1/4 cup low-fat cheese</li>
+          <li>Salt and pepper</li>
+        </ul>
+        <h4>Instructions</h4>
+        <ol>
+          <li>Beat the eggs with salt and pepper.</li>
+          <li>Cook the spinach in a pan for 1 minute.</li>
+          <li>Pour in the eggs.</li>
+          <li>Sprinkle cheese on top.</li>
+          <li>Fold the omelette and serve.</li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ LUNCH ============ -->
+<section class="meal" id="lunch">
+  <div class="wrap">
+    <div class="meal-heading">
+      <span class="emoji">🥗</span>
+      <h2>Healthy Lunch Recipes</h2>
+    </div>
+    <div class="recipe-grid">
+
+      <div class="recipe-card">
+        <div class="recipe-title"><span class="num">1</span>🍗 Grilled Chicken Salad</div>
+        <h4>Ingredients</h4>
+        <ul>
+          <li>1 grilled chicken breast</li>
+          <li>Mixed salad greens</li>
+          <li>Cherry tomatoes</li>
+          <li>Cucumber</li>
+          <li>Olive oil</li>
+          <li>Lemon juice</li>
+        </ul>
+        <h4>Instructions</h4>
+        <ol>
+          <li>Slice the grilled chicken.</li>
+          <li>Combine vegetables in a bowl.</li>
+          <li>Add the chicken.</li>
+          <li>Drizzle with olive oil and lemon juice.</li>
+          <li>Toss and serve.</li>
+        </ol>
+      </div>
+
+      <div class="recipe-card">
+        <div class="recipe-title"><span class="num">2</span>🍚 Turkey and Rice Bowl</div>
+        <h4>Ingredients</h4>
+        <ul>
+          <li>200 g ground turkey</li>
+          <li>1 cup cooked brown rice</li>
+          <li>Broccoli</li>
+          <li>Carrots</li>
+          <li>Soy sauce</li>
+        </ul>
+        <h4>Instructions</h4>
+        <ol>
+          <li>Cook the turkey until browned.</li>
+          <li>Steam the vegetables.</li>
+          <li>Add rice to a bowl.</li>
+          <li>Top with turkey and vegetables.</li>
+          <li>Drizzle with soy sauce.</li>
+        </ol>
+      </div>
+
+      <div class="recipe-card">
+        <div class="recipe-title"><span class="num">3</span>🌾 Quinoa Vegetable Bowl</div>
+        <h4>Ingredients</h4>
+        <ul>
+          <li>1 cup cooked quinoa</li>
+          <li>Bell pepper</li>
+          <li>Zucchini</li>
+          <li>Chickpeas</li>
+          <li>Olive oil</li>
+          <li>Lemon juice</li>
+        </ul>
+        <h4>Instructions</h4>
+        <ol>
+          <li>Roast the vegetables.</li>
+          <li>Combine quinoa and chickpeas.</li>
+          <li>Add roasted vegetables.</li>
+          <li>Drizzle with olive oil and lemon juice.</li>
+          <li>Mix well before serving.</li>
+        </ol>
+      </div>
+
+      <div class="recipe-card">
+        <div class="recipe-title"><span class="num">4</span>🐟 Baked Salmon with Sweet Potato</div>
+        <h4>Ingredients</h4>
+        <ul>
+          <li>1 salmon fillet</li>
+          <li>1 sweet potato</li>
+          <li>Green beans</li>
+          <li>Olive oil</li>
+          <li>Garlic powder</li>
+        </ul>
+        <h4>Instructions</h4>
+        <ol>
+          <li>Bake the salmon at 200°C (400°F) for 15–18 minutes.</li>
+          <li>Roast the sweet potato.</li>
+          <li>Steam the green beans.</li>
+          <li>Serve everything together.</li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ DINNER ============ -->
+<section class="meal" id="dinner">
+  <div class="wrap">
+    <div class="meal-heading">
+      <span class="emoji">🍲</span>
+      <h2>Healthy Dinner Recipes</h2>
+    </div>
+    <div class="recipe-grid">
+
+      <div class="recipe-card">
+        <div class="recipe-title"><span class="num">1</span>🥢 Chicken Stir-Fry</div>
+        <h4>Ingredients</h4>
+        <ul>
+          <li>Chicken breast</li>
+          <li>Broccoli</li>
+          <li>Bell peppers</li>
+          <li>Carrots</li>
+          <li>Garlic</li>
+          <li>Low-sodium soy sauce</li>
+        </ul>
+        <h4>Instructions</h4>
+        <ol>
+          <li>Cook the chicken until golden.</li>
+          <li>Add garlic and vegetables.</li>
+          <li>Stir-fry for 5–7 minutes.</li>
+          <li>Add soy sauce.</li>
+          <li>Serve hot.</li>
+        </ol>
+      </div>
+
+      <div class="recipe-card">
+        <div class="recipe-title"><span class="num">2</span>🍝 Turkey Meatballs with Vegetables</div>
+        <h4>Ingredients</h4>
+        <ul>
+          <li>Ground turkey</li>
+          <li>Egg</li>
+          <li>Oats</li>
+          <li>Zucchini noodles</li>
+          <li>Tomato sauce</li>
+        </ul>
+        <h4>Instructions</h4>
+        <ol>
+          <li>Mix turkey, egg, and oats.</li>
+          <li>Form meatballs.</li>
+          <li>Bake for 20 minutes.</li>
+          <li>Heat the tomato sauce.</li>
+          <li>Serve over zucchini noodles.</li>
+        </ol>
+      </div>
+
+      <div class="recipe-card">
+        <div class="recipe-title"><span class="num">3</span>🍤 Shrimp and Vegetable Skillet</div>
+        <h4>Ingredients</h4>
+        <ul>
+          <li>Shrimp</li>
+          <li>Broccoli</li>
+          <li>Bell pepper</li>
+          <li>Garlic</li>
+          <li>Olive oil</li>
+          <li>Lemon juice</li>
+        </ul>
+        <h4>Instructions</h4>
+        <ol>
+          <li>Cook garlic in olive oil.</li>
+          <li>Add shrimp and cook for 3 minutes.</li>
+          <li>Add vegetables.</li>
+          <li>Finish with lemon juice.</li>
+          <li>Serve immediately.</li>
+        </ol>
+      </div>
+
+      <div class="recipe-card">
+        <div class="recipe-title"><span class="num">4</span>🫑 Stuffed Bell Peppers</div>
+        <h4>Ingredients</h4>
+        <ul>
+          <li>2 bell peppers</li>
+          <li>Lean ground beef or turkey</li>
+          <li>Brown rice</li>
+          <li>Tomato sauce</li>
+          <li>Low-fat cheese</li>
+        </ul>
+        <h4>Instructions</h4>
+        <ol>
+          <li>Cook the meat and rice.</li>
+          <li>Mix with tomato sauce.</li>
+          <li>Fill the peppers.</li>
+          <li>Top with cheese.</li>
+          <li>Bake for 30 minutes at 190°C (375°F).</li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    🍓 Made with love for healthy eating &middot; Healthy Bites
+  </div>
+</footer>
+
+</body>
+</html>
